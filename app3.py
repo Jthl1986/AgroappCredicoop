@@ -232,6 +232,7 @@ def app2():
         def valor():
             return cantidad*precio
         valor = valor()
+        ingresos_totales += valor
         lista = [tipo, cantidad, precio, valor]
         return lista
     servagro=[]
