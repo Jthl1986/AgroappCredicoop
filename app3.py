@@ -231,7 +231,6 @@ def app2():
         def valor():
             return cantidad*precio
         valor = valor()
-        ingresos_estimados.append(valor)
         lista = [tipo, cantidad, precio, valor]
         return lista
     servagro=[]
@@ -239,6 +238,7 @@ def app2():
         st.session_state.dfx = pd.DataFrame(columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
     if submit:
         servagro.append(lista())
+        ingresos_estimados.append(lista[3])
         dfy = pd.DataFrame(servagro, columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
         st.session_state.dfx = pd.concat([st.session_state.dfx, dfy])
         alerta()
