@@ -200,7 +200,7 @@ def app1():
     # Inject CSS with Markdown
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     right.write("Tabla para copiar:")
-    right.table(st.session_state.dfs[["Cantidad (tn)", "Valuación"]].style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
+    right.table(st.session_state.dfs[["Tipo grano","Cantidad (tn)", "Valuación"]].style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
     
 def app2():
     st.title("🚜 Servicios agrícolas")
