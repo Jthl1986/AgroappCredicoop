@@ -244,7 +244,6 @@ def app2():
         if 'Total' not in st.session_state.dfx['Categoría'].values:
             total_ingreso = st.session_state.dfx["Ingreso estimado"].sum()
             st.session_state.dfx = st.session_state.dfx.append({"Categoría": "Total", "Ingreso estimado": total_ingreso}, ignore_index=True)
-    # CSS to inject contained in a string
     hide_table_row_index = """
             <style>
             thead tr th:first-child {display:none}
