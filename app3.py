@@ -199,8 +199,10 @@ def app1():
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
 
-ingresos_estimados = []
 def app2():
+    ingresos_estimados = []
+    if "ingresos_totales" not in st.session_state:
+        st.session_state["ingresos_totales"] = 0
     st.title("🚜 Servicios agrícolas")
     left, right = st.columns(2)
     left.write("Completar:")
@@ -238,7 +240,7 @@ def app2():
         st.session_state.dfx = pd.DataFrame(columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
     if submit:
         servagro.append(lista())
-        ingresos_estimados.append(cantidad*precio)
+        st.session_state["ingresos_totales"] += cantidad*precio
         dfy = pd.DataFrame(servagro, columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
         st.session_state.dfx = pd.concat([st.session_state.dfx, dfy])
         alerta()
@@ -252,7 +254,7 @@ def app2():
     # Inject CSS with Markdown
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     right.write("Tabla para copiar:")
-    st.write('Los ingresos totales son: ', sum(ingresos_estimados))
+    st.write('Los ingresos totales son: ', st.session_state["ingresos_totales"])
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
      
     
