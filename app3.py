@@ -141,13 +141,13 @@ def app1():
     data2 = df2[0]
     # psoja= 58760 en caso que falle precio cotagro habilitar esta línea
     psoja = data2.iloc[0,1]
-    ppsoja = int(psoja[1:])
+    ppsoja = float(psoja[1:])
     pmaiz= data2.iloc[1,1]
-    ppmaiz = int(pmaiz[1:])
+    ppmaiz = float(pmaiz[1:])
     ptrigo= data2.iloc[2,1]
-    pptrigo = int(ptrigo[1:])
+    pptrigo = float(ptrigo[1:])
     pgira= data2.iloc[4,1]
-    ppgira = int(pgira[1:])
+    ppgira = float(pgira[1:])
     ppsorgo = 44400
     fecha = data2.columns[1][7:]
     st.title("🌾 Valuación de granos")
