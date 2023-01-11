@@ -141,13 +141,13 @@ def app1():
     data2 = df2[0]
     # psoja= 58760 en caso que falle precio cotagro habilitar esta línea
     psoja = data2.iloc[0,1]
-    ppsoja = float(psoja[1:])
+    ppsoja = int(psoja[1:])
     pmaiz= data2.iloc[1,1]
-    ppmaiz = float(pmaiz[1:])
+    ppmaiz = int(pmaiz[1:])
     ptrigo= data2.iloc[2,1]
-    pptrigo = float(ptrigo[1:])
+    pptrigo = int(ptrigo[1:])
     pgira= data2.iloc[4,1]
-    ppgira = float(pgira[1:])
+    ppgira = int(pgira[1:])
     ppsorgo = 44400
     fecha = data2.columns[1][7:]
     st.title("🌾 Valuación de granos")
@@ -187,9 +187,7 @@ def app1():
         cereales.append(lista())
         dfd = pd.DataFrame(cereales, columns=("Tipo grano", "Cantidad (tn)", "Valuación"))
         st.session_state.dfs = pd.concat([st.session_state.dfs, dfd])
-        total = st.session_state.dfs["Valuación"].sum() #fila ingresada
-        st.session_state.dfs.loc["Total"] = ["","",total] #fila ingresada
-
+    
     # CSS to inject contained in a string
     hide_table_row_index = """
             <style>
@@ -200,7 +198,7 @@ def app1():
     # Inject CSS with Markdown
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     right.write("Tabla para copiar:")
-    right.table(st.session_state.dfs[["Tipo grano","Cantidad (tn)", "Valuación"]].style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
+    right.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
     
 def app2():
     st.title("🚜 Servicios agrícolas")
