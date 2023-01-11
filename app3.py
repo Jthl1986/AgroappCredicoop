@@ -199,7 +199,7 @@ def app1():
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
 
-ingresos_totales = 0    
+ingresos_estimados = []
 def app2():
     st.title("🚜 Servicios agrícolas")
     left, right = st.columns(2)
@@ -228,11 +228,10 @@ def app2():
             st.write('')
     
     def lista():
-        global ingresos_totales
         def valor():
             return cantidad*precio
         valor = valor()
-        ingresos_totales += valor
+        ingresos_estimados.append(valor)
         lista = [tipo, cantidad, precio, valor]
         return lista
     servagro=[]
@@ -253,7 +252,7 @@ def app2():
     # Inject CSS with Markdown
     st.markdown(hide_table_row_index, unsafe_allow_html=True)
     right.write("Tabla para copiar:")
-    st.write('Los ingresos totales son: ', ingresos_totales)
+    st.write('Los ingresos totales son: ', sum(ingresos_estimados))
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
      
     
