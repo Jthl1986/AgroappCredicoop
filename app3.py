@@ -241,6 +241,8 @@ def app2():
         dfy = pd.DataFrame(servagro, columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
         st.session_state.dfx = pd.concat([st.session_state.dfx, dfy])
         alerta()
+    total_ingreso = st.session_state.dfx["Ingreso estimado"].sum()
+    st.session_state.dfx = st.session_state.dfx.append({"Categoría": "Total", "Ingreso estimado": total_ingreso}, ignore_index=True)
     # CSS to inject contained in a string
     hide_table_row_index = """
             <style>
