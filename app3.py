@@ -238,7 +238,7 @@ def app2():
         st.session_state.dfx = pd.DataFrame(columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
     if submit:
         servagro.append(lista())
-        ingresos_estimados.append(lista.loc[3])
+        ingresos_estimados.append(cantidad*precio)
         dfy = pd.DataFrame(servagro, columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
         st.session_state.dfx = pd.concat([st.session_state.dfx, dfy])
         alerta()
