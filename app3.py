@@ -187,6 +187,9 @@ def app1():
         cereales.append(lista())
         dfd = pd.DataFrame(cereales, columns=("Tipo grano", "Cantidad (tn)", "Valuación"))
         st.session_state.dfs = pd.concat([st.session_state.dfs, dfd])
+        total = st.session_state.dfs["Valuación"].sum() #fila ingresada
+        st.session_state.dfs.loc["Total"] = ["","",total] #fila ingresada
+
     # CSS to inject contained in a string
     hide_table_row_index = """
             <style>
