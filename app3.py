@@ -132,6 +132,8 @@ def app():
         dfb = pd.DataFrame(metalista, columns=("Categoría", "Cantidad", "Peso", "Valuación"))
         st.session_state.dfa = pd.concat([st.session_state.dfa, dfb])
     css()
+    valuacion_total = st.session_state.dfs['Valuación'].sum()
+    right.metric('La valuación total de hacienda es: ', '${:,}'.format(valuacion_total))
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfa.style.format({"Cantidad":"{:.0f}", "Peso":"{:.0f}", "Valuación":"${:,}"}))
     right.write(f'Los precios considerados son de la {fecha}')
