@@ -197,7 +197,6 @@ def app1():
     right.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
 
 def app2():
-    ingresos_estimados = []
     if "ingresos_totales" not in st.session_state:
         st.session_state["ingresos_totales"] = 0
     st.title("🚜 Servicios agrícolas")
@@ -236,7 +235,7 @@ def app2():
             pass
     css()
     right.write("Tabla para copiar:")
-    st.write('Los ingresos totales son: ', st.session_state["ingresos_totales"])
+    right.metric('Los ingresos totales son: ', st.session_state["ingresos_totales"])
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
       
     def mostrar_precios_referencia(tipo_servicio, imagen):
