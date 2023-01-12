@@ -256,14 +256,13 @@ def app2():
     right.write("Tabla para copiar:")
     st.write('Los ingresos totales son: ', st.session_state["ingresos_totales"])
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
-     
-    
-    expander = st.expander("Ver precios de referencia - Cosecha Soja")
-    expander.image("https://www.agrocontratistas.com.ar/img/Precios/SOJA202205.jpg")
-    expander2 = st.expander("Ver precios de referencia - Cosecha Maíz")
-    expander2.image("https://www.agrocontratistas.com.ar/img/Precios/MAIZ202207.jpg")
-    expander3 = st.expander("Ver precios de referencia - Siembra y Laboreos")
-    expander3.image("https://www.agrocontratistas.com.ar/img/Precios/Labores_202207.jpg")
+      
+    def mostrar_precios_referencia(tipo_servicio, imagen):
+        expander = st.expander(f"Ver precios de referencia - {tipo_servicio}")
+        expander.image(imagen)
+    mostrar_precios_referencia("Cosecha Soja", "https://www.agrocontratistas.com.ar/img/Precios/SOJA202205.jpg")
+    mostrar_precios_referencia("Cosecha Maíz", "https://www.agrocontratistas.com.ar/img/Precios/MAIZ202207.jpg")
+    mostrar_precios_referencia("Siembra y Laboreos", "https://www.agrocontratistas.com.ar/img/Precios/Labores_202207.jpg")
     return st.session_state.dfx
     
 def app3():
