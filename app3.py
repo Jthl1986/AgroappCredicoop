@@ -14,6 +14,17 @@ import json
 
 st.set_page_config(page_title="AgroAppCredicoop",page_icon="🌱",layout="wide") 
 
+def css():
+    # CSS to inject contained in a string
+    hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+            </style>
+            """
+    # Inject CSS with Markdown
+    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
 def load_lottieurl(url: str):
     r = requests.get(url)
     if r.status_code != 200:
@@ -225,7 +236,7 @@ def app2():
         return lista
     servagro=[]
     if "dfx" not in st.session_state:
-        st.session_state.dfx = pd.DataFrame(columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"), index=False)
+        st.session_state.dfx = pd.DataFrame(columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
     if submit:
         servagro.append(lista())
         st.session_state["ingresos_totales"] += cantidad*precio
@@ -237,6 +248,7 @@ def app2():
             st.warning("ALERTA! El precio por ha de siembra cargado es fuera de los promedios de mercado. Ver precios de referencia abajo")
         else:
             pass
+    css()
     right.write("Tabla para copiar:")
     st.write('Los ingresos totales son: ', st.session_state["ingresos_totales"])
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
