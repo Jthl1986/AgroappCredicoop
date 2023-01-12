@@ -217,18 +217,6 @@ def app2():
     valormins = valors*0.50
     valormaxs = valors*1.50
     
-    def alerta():
-        if tipo == 'Cosecha' and precio > valormaxc:
-            st.warning("ALERTA! El precio por ha de cosecha cargado es superior a los promedios de mercado. Ver precios de referencia abajo")
-        elif tipo == 'Cosecha' and precio < valorminc:
-            st.warning("ALERTA! El precio por ha de cosecha cargado es inferior a los promedios de mercado. Ver precios de referencia abajo")
-        elif tipo == 'Siembra' and precio < valormins:
-            st.warning("ALERTA! El precio por ha de siembra cargado es inferior a los promedios de mercado. Ver precios de referencia abajo")
-        elif tipo == 'Siembra' and precio > valormaxc:
-            st.warning("ALERTA! El precio por ha de siembra cargado es superior a los promedios de mercado. Ver precios de referencia abajo")
-        else:
-            st.write('')
-    
     def lista():
         def valor():
             return cantidad*precio
@@ -243,7 +231,12 @@ def app2():
         st.session_state["ingresos_totales"] += cantidad*precio
         dfy = pd.DataFrame(servagro, columns=("Categoría", "Superficie(ha)", "Precio", "Ingreso estimado"))
         st.session_state.dfx = pd.concat([st.session_state.dfx, dfy])
-        alerta()
+        if tipo == 'Cosecha' and (precio > valormaxc or precio < valorminc):
+            st.warning("ALERTA! El precio por ha de cosecha cargado es fuera de los promedios de mercado. Ver precios de referencia abajo")
+        elif tipo == 'Siembra' and (precio > valormaxs or precio < valormins):
+            st.warning("ALERTA! El precio por ha de siembra cargado es fuera de los promedios de mercado. Ver precios de referencia abajo")
+        else:
+            pass
     # CSS to inject contained in a string
     hide_table_row_index = """
             <style>
