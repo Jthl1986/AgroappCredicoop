@@ -142,6 +142,8 @@ def app():
     st.table(promedios.assign(hack='').set_index('hack'))
     
 def app1():
+    if "ingresos_totales" not in st.session_state:
+        st.session_state["ingresos_totales"] = 0
     df2=pd.read_html('https://www.cotagroweb.com.ar/pizarra/')
     data2 = df2[0]
     # psoja= 58760 en caso que falle precio cotagro habilitar esta línea
