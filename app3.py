@@ -193,10 +193,10 @@ def app1():
         dfd = pd.DataFrame(cereales, columns=("Tipo grano", "Cantidad (tn)", "Valuación"))
         st.session_state.dfs = pd.concat([st.session_state.dfs, dfd])
     css()
+    valuacion_total = st.session_state.dfs['Valuación'].sum()
+    right.metric('La valuación total de granos es: ', '${:,}'.format(valuacion_total))
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
-    valuacion_total = st.session_state.dfs['Valuación'].sum()
-    st.write('Valuación total: ', '${:,}'.format(valuacion_total))
 
 def app2():
     if "ingresos_totales" not in st.session_state:
@@ -236,7 +236,7 @@ def app2():
         else:
             pass
     css()
-    right.metric('Los ingresos totales son: ', "${:,}".format(st.session_state["ingresos_totales"]))
+    right.metric('Los ingresos totales por servicios agrícolas son: ', "${:,}".format(st.session_state["ingresos_totales"]))
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
     
