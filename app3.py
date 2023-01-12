@@ -211,11 +211,11 @@ def app2():
     cantidad = form.number_input("Ingrese superficie (has): ", step=1)
     precio = form.number_input("Ingrese precio por ha", step=1)
     submit = form.form_submit_button("Ingresar")
-    valorminc = 9000 #valores a actualizar
-    valormaxc = 16000 #valores a actualizar
-    valors = 7500 #valores a actualizar
-    valormins = valors*0.50
-    valormaxs = valors*1.50
+    valorminc = 9000 #valor minimo cosecha
+    valormaxc = 16000 #valor maximo cosecha
+    valors = 7500 #valor referencia siembra
+    valormins = valors*0.50 #valor minimo siembra
+    valormaxs = valors*1.50 #valor maximo siembra
     
     def lista():
         def valor():
@@ -237,15 +237,7 @@ def app2():
             st.warning("ALERTA! El precio por ha de siembra cargado es fuera de los promedios de mercado. Ver precios de referencia abajo")
         else:
             pass
-    # CSS to inject contained in a string
-    hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-            </style>
-            """
-    # Inject CSS with Markdown
-    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+    st.session_state.dfx.hide_index()
     right.write("Tabla para copiar:")
     st.write('Los ingresos totales son: ', st.session_state["ingresos_totales"])
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
