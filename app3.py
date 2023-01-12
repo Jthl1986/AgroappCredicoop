@@ -14,6 +14,19 @@ import json
 
 st.set_page_config(page_title="AgroAppCredicoop",page_icon="🌱",layout="wide") 
 
+def copy_button():
+    copy_button = Button(label="Copiar tabla")
+    copy_button.js_on_event("button_click", CustomJS(args=dict(df=st.session_state.dfa.to_csv(sep='\t')), code="""
+        navigator.clipboard.writeText(df);
+        """))
+    no_event = streamlit_bokeh_events(
+        copy_button,
+        events="GET_TEXT",
+        key="get_text",
+        refresh_on_update=True,
+        override_height=75,
+        debounce_time=0)
+    
 def css():
     # CSS to inject contained in a string
     hide_table_row_index = """
@@ -118,28 +131,9 @@ def app():
         metalista.append(constructor())
         dfb = pd.DataFrame(metalista, columns=("Categoría", "Cantidad", "Peso", "Valuación"))
         st.session_state.dfa = pd.concat([st.session_state.dfa, dfb])
-    # CSS to inject contained in a string
-    hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-            </style>
-            """
-    # Inject CSS with Markdown
-    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+    css()
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfa.style.format({"Cantidad":"{:.0f}", "Peso":"{:.0f}", "Valuación":"${:,}"}))
-    copy_button = Button(label="Copiar tabla")
-    copy_button.js_on_event("button_click", CustomJS(args=dict(df=st.session_state.dfa.to_csv(sep='\t')), code="""
-        navigator.clipboard.writeText(df);
-        """))
-    no_event = streamlit_bokeh_events(
-        copy_button,
-        events="GET_TEXT",
-        key="get_text",
-        refresh_on_update=True,
-        override_height=75,
-        debounce_time=0)
     right.write(f'Los precios considerados son de la {fecha}')
     promedios = pd.DataFrame(
         {'Categoria': ['Ternero', 'Novillo', 'Ternera', 'Vaquillonas'],
@@ -198,15 +192,7 @@ def app1():
         cereales.append(lista())
         dfd = pd.DataFrame(cereales, columns=("Tipo grano", "Cantidad (tn)", "Valuación"))
         st.session_state.dfs = pd.concat([st.session_state.dfs, dfd])
-    # CSS to inject contained in a string
-    hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-            </style>
-            """
-    # Inject CSS with Markdown
-    st.markdown(hide_table_row_index, unsafe_allow_html=True)
+    css()
     right.write("Tabla para copiar:")
     right.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
 
@@ -318,16 +304,8 @@ def app4():
     
 def app5():
      st.header("Cuadro resumen")
-     # CSS to inject contained in a string
      left, right = st.columns(2)
-     hide_table_row_index = """
-             <style>
-             thead tr th:first-child {display:none}
-             tbody th {display:none}
-             </style>
-             """
-     # Inject CSS with Markdown
-     st.markdown(hide_table_row_index, unsafe_allow_html=True)
+     css()
      left.subheader("🌾 Existencias de granos")
      left.table(st.session_state.dfs.style.format({"Cantidad (tn)":"{:.0f}", "Valuación":"${:,}"}))
      left.subheader("🚜 Ingresos Servicios agrícolas")
