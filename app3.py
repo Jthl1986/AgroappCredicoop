@@ -234,10 +234,11 @@ def app2():
         else:
             pass
     css()
+    right.metric('Los ingresos totales son: ', "${:,}".format(st.session_state["ingresos_totales"]))
     right.write("Tabla para copiar:")
-    right.metric('Los ingresos totales son: ', st.session_state["ingresos_totales"])
     right.table(st.session_state.dfx.style.format({"Superficie(ha)":"{:.0f}", "Precio":"${:,}", "Ingreso estimado":"${:,}"}))
-      
+    
+    
     def mostrar_precios_referencia(tipo_servicio, imagen):
         expander = st.expander(f"Ver precios de referencia - {tipo_servicio}")
         expander.image(imagen)
