@@ -211,9 +211,9 @@ def app2():
     cantidad = form.number_input("Ingrese superficie (has): ", step=1)
     precio = form.number_input("Ingrese precio por ha", step=1)
     submit = form.form_submit_button("Ingresar")
-    valorminc = 9000 #valor minimo cosecha
-    valormaxc = 16000 #valor maximo cosecha
-    valors = 7500 #valor referencia siembra
+    valorminc = 19000 #valor minimo cosecha
+    valormaxc = 31000 #valor maximo cosecha
+    valors = 14700 #valor referencia siembra
     valormins = valors*0.50 #valor minimo siembra
     valormaxs = valors*1.50 #valor maximo siembra
     
@@ -246,9 +246,9 @@ def app2():
     def mostrar_precios_referencia(tipo_servicio, imagen):
         expander = st.expander(f"Ver precios de referencia - {tipo_servicio}")
         expander.image(imagen)
-    mostrar_precios_referencia("Cosecha Soja", "https://www.agrocontratistas.com.ar/img/Precios/SOJA202205.jpg")
-    mostrar_precios_referencia("Cosecha Maíz", "https://www.agrocontratistas.com.ar/img/Precios/MAIZ202207.jpg")
-    mostrar_precios_referencia("Siembra y Laboreos", "https://www.agrocontratistas.com.ar/img/Precios/Labores_202207.jpg")
+    mostrar_precios_referencia("Cosecha Soja", "https://www.agrocontratistas.com.ar/img/Precios/SOJA202303.jpg")
+    mostrar_precios_referencia("Cosecha Maíz", "https://www.agrocontratistas.com.ar/img/Precios/MAIZ202303.jpg")
+    mostrar_precios_referencia("Siembra y Laboreos", "https://www.agrocontratistas.com.ar/img/Precios/Labores_202302.jpg")
     return st.session_state.dfx
     
 def app3():
@@ -289,6 +289,7 @@ def app4():
     gastos = right.number_input("Gastos de estructura", step=1)
     arrendamiento = right.number_input("Gastos de arrendamiento", step=1)
     
+    #precios de granos
     psoja1 = 350
     psoja2 = 350
     ptrigo = 232 
@@ -305,6 +306,13 @@ def app4():
     ibsorgo = psorgo*dol*rinde*cantidad
     ibcebada = pcebada*dol*rinde*cantidad 
     
+    #costos directos
+    costo = 100 #en realidad es un promedio
+    costodirecto = costo*dol*cantidad
+    
+    #gasto de comercialización
+    porgastos = 0.10
+    gastoscom = porgastos*ibsoja1
     
 def app5():
      st.header("Cuadro resumen")
